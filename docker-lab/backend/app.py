@@ -1,9 +1,6 @@
-import dotenv
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
 from routes import image_gen_router
-
-dotenv.load_dotenv('.env')
 
 app = fastapi.FastAPI()
 
@@ -18,3 +15,8 @@ app.add_middleware(
 )
 
 app.include_router(image_gen_router)
+
+
+@app.get('/health')
+def health():
+    return {"status": "ok"}

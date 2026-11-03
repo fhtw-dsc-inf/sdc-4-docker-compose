@@ -1,43 +1,31 @@
-import warnings
-from stability_sdk import client
-import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
+import httpx
 
 
 class StabilityApiGenerator:
+    endpoint = "https://api.stability.ai/v2beta/stable-image/generate/core"
+
     def __init__(self, api_key: str):
-        # Set up our connection to the API.
-        self.stability_api = client.StabilityInference(
-            host='grpc.stability.ai:443',  # Host reference.
-            key=api_key,  # API Key reference.
-            verbose=True,  # Print debug messages.
-            engine="stable-diffusion-xl-1024-v1-0"  # Set the engine to use for generation.
+        self.api_key = api_key
+
+    def generate_image(self, prompt: str, negative_prompt: str) -> bytes:
+        # Text fields also need multipart encoding for the current Stability API.
+        response = httpx.post(
+            self.endpoint,
+            headers={
+                "Authorization": f"Bearer {self.api_key}",
+                "Accept": "image/*",
+            },
+            files={
+                "prompt": (None, prompt),
+                "negative_prompt": (None, negative_prompt),
+                "aspect_ratio": (None, "1:1"),
+                "output_format": (None, "png"),
+            },
+            timeout=120.0,
         )
-
-    def __stability_request(self, prompt, negative_prompt):
-        prompt = [
-            generation.Prompt(
-                text=prompt, parameters=generation.PromptParameters(weight=1)),
-            generation.Prompt(
-                text=negative_prompt,
-                parameters=generation.PromptParameters(weight=-1))
-        ]
-        return self.stability_api.generate(
-            prompt=prompt,
-            steps=30,
-            cfg_scale=8.0,
-            width=1024,
-            height=1024,
-            samples=1,
-            sampler=generation.SAMPLER_K_DPMPP_2M)
-
-    def generate_image(self, prompt, negative_prompt):
-        answers = self.__stability_request(prompt, negative_prompt)
-
-        for resp in answers:
-            for artifact in resp.artifacts:
-                if artifact.finish_reason == generation.FILTER:
-                    warnings.warn(
-                        "Your request activated the API's safety filters and could not be processed."
-                        "Please modify the prompt and try again.")
-                if artifact.type == generation.ARTIFACT_IMAGE:
-                    return artifact.binary
+        response.raise_for_status()
+        if response.headers.get("finish-reason") == "CONTENT_FILTERED":
+            raise ValueError("Stability AI filtered the generated image.")
+        if not response.content or not response.headers.get("content-type", "").startswith("image/"):
+            raise ValueError("Stability AI did not return an image.")
+        return response.content
