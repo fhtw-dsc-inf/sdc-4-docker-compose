@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="930" viewBox="0 0 1100 930" role="img" aria-labelledby="title desc">
+  <title id="title">HTTP job lifecycle: accept, process, poll</title>
+  <desc id="desc">A client submits a report request. The API queues the job in Redis and returns 202 Accepted with a job ID and status URL. A worker takes the job and records success or failure. The client polls a status endpoint until the job reaches a final state.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#087f8c"/>
+    </marker>
+    <style>text{font-family:Inter,Arial,sans-serif;fill:#163047}.muted{fill:#526a7d}.mono{font-family:Menlo,Consolas,monospace}.teal{fill:#087f8c}</style>
+  </defs>
+  <rect width="1100" height="930" rx="20" fill="#f8fbfc"/>
+  <text x="44" y="35" font-size="13" font-weight="700" class="teal" text-anchor="start">HTTP JOBS · 01</text>
+  <text x="44" y="76" font-size="28" font-weight="700" class="" text-anchor="start">Accept now. Process separately. Poll for the result.</text>
+  <text x="44" y="108" font-size="17" font-weight="400" class="muted" text-anchor="start">A quick HTTP response acknowledges the job; it does not mean the work has finished.</text>
+  <rect x="44" y="140" width="1012" height="205" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="66" y="173" font-size="15" font-weight="700" class="teal" text-anchor="start">1  SUBMIT A JOB</text>
+  <rect x="80" y="201" width="210" height="82" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="99" y="234" font-size="21" font-weight="700" class="" text-anchor="start">Client</text>
+  <text x="99" y="260" font-size="15" font-weight="400" class="muted" text-anchor="start">Browser or app</text>
+  <rect x="455" y="201" width="210" height="82" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="474" y="234" font-size="21" font-weight="700" class="" text-anchor="start">HTTP API</text>
+  <text x="474" y="260" font-size="15" font-weight="400" class="muted" text-anchor="start">Creates a job ID</text>
+  <rect x="820" y="201" width="210" height="82" rx="14" fill="#dff2ee" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="839" y="234" font-size="21" font-weight="700" class="" text-anchor="start">Redis queue</text>
+  <text x="839" y="260" font-size="15" font-weight="400" class="muted" text-anchor="start">Stores the job</text>
+  <path d="M 290 220 H 455" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="372" y="207" font-size="14" font-weight="500" class="mono" text-anchor="middle">POST /reports</text>
+  <path d="M 665 242 H 820" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="742" y="225" font-size="15" font-weight="500" class="teal" text-anchor="middle">enqueue</text>
+  <path d="M 455 272 H 290" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="372" y="301" font-size="15" font-weight="700" class="teal" text-anchor="middle">202 Accepted</text>
+  <text x="80" y="325" font-size="16" font-weight="400" class="muted" text-anchor="start">Response body: job_id and status_url. Keep the ID to check progress.</text>
+  <rect x="44" y="369" width="1012" height="205" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="66" y="402" font-size="15" font-weight="700" class="teal" text-anchor="start">2  A WORKER DOES THE WORK</text>
+  <rect x="80" y="433" width="210" height="82" rx="14" fill="#dff2ee" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="99" y="466" font-size="21" font-weight="700" class="mono" text-anchor="start">queued</text>
+  <text x="99" y="492" font-size="15" font-weight="400" class="muted" text-anchor="start">Waiting for a worker</text>
+  <rect x="455" y="433" width="210" height="82" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="474" y="466" font-size="21" font-weight="700" class="" text-anchor="start">Worker</text>
+  <text x="474" y="492" font-size="15" font-weight="500" class="mono" text-anchor="start">running</text>
+  <path d="M 290 474 H 455" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="372" y="453" font-size="15" font-weight="500" class="teal" text-anchor="middle">takes the job</text>
+  <rect x="820" y="424" width="210" height="48" rx="10" fill="#dff2ee" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="838" y="454" font-size="16" font-weight="700" class="" text-anchor="start">succeeded → result</text>
+  <rect x="820" y="486" width="210" height="48" rx="10" fill="#fff0ec" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="838" y="516" font-size="16" font-weight="700" class="" text-anchor="start">failed → error</text>
+  <path d="M 665 474 H 780 V 448 H 820" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <path d="M 780 474 V 510 H 820" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="80" y="554" font-size="16" font-weight="400" class="muted" text-anchor="start">The worker records the outcome. If no worker is running, the job stays queued.</text>
+  <rect x="44" y="598" width="1012" height="235" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="66" y="632" font-size="15" font-weight="700" class="teal" text-anchor="start">3  CHECK STATUS THROUGH HTTP</text>
+  <rect x="80" y="672" width="210" height="82" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="99" y="705" font-size="21" font-weight="700" class="" text-anchor="start">Client</text>
+  <text x="99" y="731" font-size="15" font-weight="400" class="muted" text-anchor="start">Uses the saved job ID</text>
+  <rect x="455" y="672" width="210" height="82" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="474" y="705" font-size="21" font-weight="700" class="" text-anchor="start">HTTP API</text>
+  <text x="474" y="731" font-size="15" font-weight="400" class="muted" text-anchor="start">Returns job status</text>
+  <rect x="820" y="672" width="210" height="82" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="839" y="705" font-size="21" font-weight="700" class="" text-anchor="start">Redis</text>
+  <text x="839" y="731" font-size="15" font-weight="400" class="muted" text-anchor="start">Job state / result</text>
+  <path d="M 290 690 H 455" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="372" y="661" font-size="13" font-weight="500" class="mono" text-anchor="middle">GET /reports/{id}</text>
+  <path d="M 665 690 H 820" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="742" y="661" font-size="15" font-weight="500" class="teal" text-anchor="middle">read status</text>
+  <path d="M 820 744 H 665" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <path d="M 455 744 H 290" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="372" y="779" font-size="14" font-weight="500" class="teal" text-anchor="middle">200 + status / result</text>
+  <text x="80" y="810" font-size="16" font-weight="400" class="muted" text-anchor="start">Poll while queued or running. Stop on succeeded or failed; use a timeout.</text>
+  <rect x="44" y="855" width="1012" height="48" rx="12" fill="#dff2ee" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="67" y="886" font-size="18" font-weight="700" class="" text-anchor="start">202 means accepted. Completion is reported by the job status, not the initial POST.</text>
+</svg>

@@ -1,56 +1,59 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="760" viewBox="0 0 1100 760" role="img" aria-labelledby="title desc">
-  <title id="title">A queue decouples requests from work</title>
-  <desc id="desc">A producer enqueues jobs in Redis. Workers dequeue jobs and execute Python code. Results are stored separately. FIFO describes dequeue order; multiple workers may finish in a different order. The simple Redis list demo has no automatic acknowledgment.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="720" viewBox="0 0 1100 720" role="img" aria-labelledby="title desc">
+  <title id="title">HTTP request queue: the API accepts, Redis holds jobs, workers execute</title>
+  <desc id="desc">The client submits an HTTP request to the API. The API enqueues a job and returns quickly. Redis holds waiting jobs. Independent workers execute them and save a result. Multiple workers may finish jobs in a different order.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#087f8c"/>
     </marker>
     <style>text{font-family:Inter,Arial,sans-serif;fill:#163047}.muted{fill:#526a7d}.mono{font-family:Menlo,Consolas,monospace}.teal{fill:#087f8c}</style>
   </defs>
-  <rect width="1100" height="760" rx="20" fill="#f8fbfc"/>
-  <text x="44" y="35" font-size="13" font-weight="700" text-anchor="start" class="teal">REDIS · 02</text>
-  <text x="44" y="76" font-size="30" font-weight="700" text-anchor="start" class="">The queue buffers — the worker runs jobs</text>
-  <text x="44" y="108" font-size="17" font-weight="400" text-anchor="start" class="muted">A request can receive a quick response while a time-consuming task runs later.</text>
-  <rect x="44" y="190" width="224" height="166" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="67" y="229" font-size="24" font-weight="700" text-anchor="start" class="">Producer</text>
-  <text x="67" y="261" font-size="18" font-weight="400" text-anchor="start" class="">Notebook or API</text>
-  <text x="67" y="296" font-size="17" font-weight="400" text-anchor="start" class="muted">Describe a job</text>
-  <text x="67" y="324" font-size="17" font-weight="400" text-anchor="start" class="muted">and enqueue it</text>
-  <path d="M 268 272 H 355" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <text x="310" y="246" font-size="14" font-weight="500" text-anchor="middle" class="teal">enqueue</text>
-  <rect x="355" y="170" width="375" height="204" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="379" y="207" font-size="23" font-weight="700" text-anchor="start" class="">Queue in Redis</text>
-  <text x="379" y="237" font-size="16" font-weight="400" text-anchor="start" class="muted">e.g. a Redis list</text>
-  <rect x="387" y="259" width="80" height="48" rx="8" fill="#dff2ee" stroke="#dff2ee" stroke-width="1.5"/>
-  <text x="427" y="290" font-size="20" font-weight="700" text-anchor="middle" class="teal">J1</text>
-  <rect x="486" y="259" width="80" height="48" rx="8" fill="#dff2ee" stroke="#dff2ee" stroke-width="1.5"/>
-  <text x="526" y="290" font-size="20" font-weight="700" text-anchor="middle" class="teal">J2</text>
-  <rect x="585" y="259" width="80" height="48" rx="8" fill="#dff2ee" stroke="#dff2ee" stroke-width="1.5"/>
-  <text x="625" y="290" font-size="20" font-weight="700" text-anchor="middle" class="teal">J3</text>
-  <text x="387" y="334" font-size="15" font-weight="500" text-anchor="start" class="muted">front</text>
-  <text x="665" y="334" font-size="15" font-weight="500" text-anchor="end" class="muted">back</text>
-  <text x="379" y="360" font-size="15" font-weight="500" text-anchor="start" class="mono">RPUSH → back  ·  BLPOP ← front</text>
-  <path d="M 730 272 H 782 V 207 H 836" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <path d="M 782 272 V 344 H 836" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <rect x="836" y="160" width="220" height="94" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="858" y="196" font-size="22" font-weight="700" text-anchor="start" class="">Worker 1</text>
-  <text x="858" y="226" font-size="15" font-weight="400" text-anchor="start" class="muted">runs Python code</text>
-  <rect x="836" y="297" width="220" height="94" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="858" y="333" font-size="22" font-weight="700" text-anchor="start" class="">Worker 2</text>
-  <text x="858" y="363" font-size="15" font-weight="400" text-anchor="start" class="muted">runs Python code</text>
-  <text x="790" y="421" font-size="15" font-weight="500" text-anchor="middle" class="teal">dequeue / take a job</text>
-  <path d="M 1056 207 H 1080 V 452 H 946 V 485" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <path d="M 946 391 V 452" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <rect x="760" y="485" width="296" height="92" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="782" y="521" font-size="21" font-weight="700" text-anchor="start" class="">Store the result</text>
-  <text x="782" y="552" font-size="15" font-weight="400" text-anchor="start" class="muted">e.g. a Redis key or image file</text>
-  <rect x="44" y="432" width="660" height="145" rx="14" fill="#edf5f8" stroke="#edf5f8" stroke-width="1.5"/>
-  <text x="67" y="470" font-size="21" font-weight="700" text-anchor="start" class="">Redis does not execute Python jobs.</text>
-  <text x="67" y="504" font-size="18" font-weight="400" text-anchor="start" class="">Redis stores and transfers data. A worker is a</text>
-  <text x="67" y="534" font-size="18" font-weight="400" text-anchor="start" class="">separate process that performs the actual work.</text>
-  <rect x="44" y="613" width="1012" height="104" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="67" y="646" font-size="19" font-weight="700" text-anchor="start" class="">Two important limits</text>
-  <text x="67" y="674" font-size="17" font-weight="400" text-anchor="start" class="">FIFO controls dequeue order. Parallel workers may finish jobs in a different order.</text>
-  <text x="67" y="701" font-size="17" font-weight="400" text-anchor="start" class="muted">Simple list demo: BLPOP removes the job; a subsequent crash can lose it.</text>
+  <rect width="1100" height="720" rx="20" fill="#f8fbfc"/>
+  <text x="44" y="35" font-size="13" font-weight="700" class="teal" text-anchor="start">HTTP JOBS · 02</text>
+  <text x="44" y="76" font-size="29" font-weight="700" class="" text-anchor="start">The API accepts requests. Workers run the jobs.</text>
+  <text x="44" y="108" font-size="17" font-weight="400" class="muted" text-anchor="start">A queue separates a short HTTP request from time-consuming background work.</text>
+  <rect x="44" y="247" width="185" height="105" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="64" y="283" font-size="23" font-weight="700" class="" text-anchor="start">Client</text>
+  <text x="64" y="311" font-size="15" font-weight="400" class="muted" text-anchor="start">Submits a request</text>
+  <text x="64" y="334" font-size="15" font-weight="400" class="muted" text-anchor="start">Polls for progress</text>
+  <rect x="291" y="247" width="190" height="105" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="311" y="283" font-size="23" font-weight="700" class="" text-anchor="start">HTTP API</text>
+  <text x="311" y="311" font-size="16" font-weight="500" class="teal" text-anchor="start">Producer</text>
+  <text x="311" y="334" font-size="15" font-weight="400" class="muted" text-anchor="start">Returns a job ID</text>
+  <path d="M 229 279 H 291" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="260" y="262" font-size="13" font-weight="700" class="teal" text-anchor="middle">POST</text>
+  <path d="M 291 330 H 229" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="260" y="375" font-size="14" font-weight="700" class="teal" text-anchor="middle">202</text>
+  <rect x="543" y="225" width="220" height="145" rx="14" fill="#dff2ee" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="565" y="259" font-size="22" font-weight="700" class="" text-anchor="start">Redis queue</text>
+  <text x="565" y="285" font-size="15" font-weight="400" class="muted" text-anchor="start">Waiting jobs</text>
+  <rect x="565" y="304" width="52" height="42" rx="8" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="591" y="332" font-size="18" font-weight="700" class="teal" text-anchor="middle">J1</text>
+  <rect x="627" y="304" width="52" height="42" rx="8" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="653" y="332" font-size="18" font-weight="700" class="teal" text-anchor="middle">J2</text>
+  <rect x="689" y="304" width="52" height="42" rx="8" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="715" y="332" font-size="18" font-weight="700" class="teal" text-anchor="middle">J3</text>
+  <path d="M 481 299 H 543" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="512" y="279" font-size="13" font-weight="500" class="teal" text-anchor="middle">queue</text>
+  <rect x="843" y="172" width="213" height="92" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="863" y="206" font-size="22" font-weight="700" class="" text-anchor="start">Worker 1</text>
+  <text x="863" y="234" font-size="15" font-weight="400" class="muted" text-anchor="start">Executes the task</text>
+  <rect x="843" y="310" width="213" height="92" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="863" y="344" font-size="22" font-weight="700" class="" text-anchor="start">Worker 2</text>
+  <text x="863" y="372" font-size="15" font-weight="400" class="muted" text-anchor="start">Executes the task</text>
+  <path d="M 763 299 H 798 V 218 H 843" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <path d="M 798 299 V 356 H 843" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <rect x="843" y="460" width="213" height="92" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="863" y="494" font-size="21" font-weight="700" class="" text-anchor="start">Result / error</text>
+  <text x="863" y="522" font-size="14" font-weight="400" class="muted" text-anchor="start">Available via the API</text>
+  <path d="M 1056 218 H 1080 V 435 H 949 V 460" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <path d="M 949 402 V 460" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <rect x="44" y="442" width="719" height="112" rx="14" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="66" y="474" font-size="21" font-weight="700" class="" text-anchor="start">What changes for the user?</text>
+  <text x="66" y="507" font-size="16" font-weight="400" class="" text-anchor="start">The POST finishes quickly. The screen shows progress while the job runs.</text>
+  <text x="66" y="534" font-size="16" font-weight="400" class="" text-anchor="start">Redis holds jobs; it does not execute the application code.</text>
+  <rect x="44" y="592" width="1012" height="94" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
+  <text x="66" y="624" font-size="21" font-weight="700" class="" text-anchor="start">What a queue does not promise</text>
+  <text x="66" y="652" font-size="16" font-weight="400" class="muted" text-anchor="start">It does not make one job faster. Waiting time grows if more jobs arrive than workers can handle.</text>
+  <text x="66" y="676" font-size="16" font-weight="400" class="muted" text-anchor="start">Jobs can start in queue order and still finish in a different order when several workers run.</text>
 </svg>
