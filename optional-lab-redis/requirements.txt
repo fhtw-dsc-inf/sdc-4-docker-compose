@@ -1,4 +1,4 @@
-# Separate environment for the optional notebook; no provider API keys required.
+# Dependencies for the Codespaces tutorial; no provider API keys required.
 redis==5.0.8
 rq==1.15.1
 fastapi==0.162.0
