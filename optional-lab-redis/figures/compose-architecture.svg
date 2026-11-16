@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="800" viewBox="0 0 1100 800" role="img" aria-labelledby="title desc">
-  <title id="title">Compose: API, Redis und Worker als getrennte Dienste</title>
-  <desc id="desc">Der Browser erreicht das Streamlit-Frontend. Das Frontend ruft das FastAPI-Backend über den Compose-Servicenamen auf. Backend und Worker verwenden denselben Redis-Service. Der Worker speichert Bilder in einem Volume, das das Backend zum Ausliefern liest.</desc>
+  <title id="title">Compose: API, Redis and worker as separate services</title>
+  <desc id="desc">The browser accesses the Streamlit frontend. The frontend calls the FastAPI backend using its Compose service name. The backend and worker use the same Redis service. The worker saves images in a volume that the backend reads to serve them.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#087f8c"/>
@@ -10,10 +10,10 @@
   </defs>
   <rect width="1100" height="800" rx="20" fill="#f8fbfc"/>
   <text x="44" y="35" font-size="13" font-weight="700" text-anchor="start" class="teal">REDIS · 03</text>
-  <text x="44" y="76" font-size="30" font-weight="700" text-anchor="start" class="">Vier Dienste, eine gemeinsame Anwendung</text>
-  <text x="44" y="108" font-size="17" font-weight="400" text-anchor="start" class="muted">Zielbild der Abschlussaufgabe: das bestehende Image-Lab mit Redis und Worker erweitern.</text>
+  <text x="44" y="76" font-size="30" font-weight="700" text-anchor="start" class="">Four services, one shared application</text>
+  <text x="44" y="108" font-size="17" font-weight="400" text-anchor="start" class="muted">Final exercise: extend the existing image lab with Redis and a worker.</text>
   <rect x="282" y="142" width="774" height="506" rx="18" fill="#f0f7f8" stroke="#c8d9e2" stroke-width="1.5" stroke-dasharray="7 5"/>
-  <text x="304" y="171" font-size="13" font-weight="700" text-anchor="start" class="teal">COMPOSE-NETZWERK</text>
+  <text x="304" y="171" font-size="13" font-weight="700" text-anchor="start" class="teal">COMPOSE NETWORK</text>
   <rect x="44" y="227" width="196" height="110" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
   <text x="66" y="267" font-size="23" font-weight="700" text-anchor="start" class="">Browser</text>
   <text x="66" y="300" font-size="16" font-weight="400" text-anchor="start" class="mono">localhost:8501</text>
@@ -34,16 +34,16 @@
   <text x="616" y="490" font-size="23" font-weight="700" text-anchor="start" class="">Worker</text>
   <text x="616" y="523" font-size="15" font-weight="500" text-anchor="start" class="mono">python worker.py</text>
   <path d="M 953 337 V 507 H 810" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <text x="936" y="415" font-size="16" font-weight="500" text-anchor="end" class="teal">Job abholen</text>
+  <text x="936" y="415" font-size="16" font-weight="500" text-anchor="end" class="teal">Fetch a job</text>
   <rect x="312" y="451" width="206" height="110" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="334" y="490" font-size="21" font-weight="700" text-anchor="start" class="">Image-Volume</text>
-  <text x="334" y="521" font-size="15" font-weight="400" text-anchor="start" class="muted">gemeinsame Dateien</text>
+  <text x="334" y="490" font-size="21" font-weight="700" text-anchor="start" class="">Image volume</text>
+  <text x="334" y="521" font-size="15" font-weight="400" text-anchor="start" class="muted">shared files</text>
   <path d="M 594 507 H 518" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <text x="556" y="484" font-size="14" font-weight="500" text-anchor="middle" class="teal">schreibt</text>
+  <text x="556" y="484" font-size="14" font-weight="500" text-anchor="middle" class="teal">writes</text>
   <path d="M 415 451 V 409 H 702 V 337" fill="none" stroke="#087f8c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
-  <text x="532" y="431" font-size="14" font-weight="500" text-anchor="middle" class="teal">liest Bilder zum Ausliefern</text>
+  <text x="532" y="431" font-size="14" font-weight="500" text-anchor="middle" class="teal">reads images to serve them</text>
   <text x="304" y="605" font-size="17" font-weight="500" text-anchor="start" class="mono teal">Backend + Worker: REDIS_URL=redis://redis:6379/0</text>
   <rect x="44" y="683" width="1012" height="74" rx="14" fill="#ffffff" stroke="#c8d9e2" stroke-width="1.5"/>
-  <text x="67" y="714" font-size="20" font-weight="700" text-anchor="start" class="">Im Container zeigt localhost auf diesen Container.</text>
-  <text x="67" y="742" font-size="16" font-weight="400" text-anchor="start" class="muted">Zwischen Diensten Compose-Namen nutzen; Backend und Worker mounten dasselbe Image-Volume.</text>
+  <text x="67" y="714" font-size="20" font-weight="700" text-anchor="start" class="">Inside a container, localhost refers to that container.</text>
+  <text x="67" y="742" font-size="16" font-weight="400" text-anchor="start" class="muted">Use Compose names between services; backend and worker mount the same image volume.</text>
 </svg>
