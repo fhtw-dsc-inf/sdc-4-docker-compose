@@ -35,13 +35,14 @@ async def get_image(image_id: str, upload_folder: str = Depends(get_upload_folde
 # sync method
 @router.post('/images')
 async def post_message(request: ImageModel,
-                       gpt_service: GPTService = Depends(get_gpt_service),
-                       profanity_violation: str = Depends(get_profanity_violation),
+                       # gpt_service: GPTService = Depends(get_gpt_service),
+                       # profanity_violation: str = Depends(get_profanity_violation),
                        image_generator: ImageGenerator = Depends(get_image_generator)):
     user_prompt: str = request.userPrompt
 
-    if gpt_service.contains_profanity(user_prompt):
-        raise HTTPException(status_code=400, detail=profanity_violation)
+    # GPT validation is disabled for this lab.
+    # if gpt_service.contains_profanity(user_prompt):
+    #     raise HTTPException(status_code=400, detail=profanity_violation)
     image_binary = image_generator.generate_image(user_prompt)
     return Response(content=image_binary, media_type="image/png")
 
